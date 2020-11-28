@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Livewire;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/dashboard', Livewire\Dashboard::class)
+    ->name('dashboard');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/connection/new', Livewire\DumpNew::class)
+    ->name('connection.new');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/connection/{connection}', Livewire\DumpShow::class)
+    ->name('connection.show');
+
+Route::middleware(['auth:sanctum', 'verified'])
+    ->get('/connection/{connection}', Livewire\DumpShow::class)
+    ->name('connection.delete');
