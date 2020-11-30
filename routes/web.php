@@ -28,7 +28,3 @@ Route::middleware(['auth:sanctum', 'verified'])
 Route::middleware(['auth:sanctum', 'verified'])
     ->get('/connection/{connection}', Livewire\DumpShow::class)
     ->name('connection.show');
-
-Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/connection/{connection}', Livewire\DumpShow::class)
-    ->name('connection.delete');

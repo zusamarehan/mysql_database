@@ -20,6 +20,7 @@ class Dashboard extends Component
         $this->connections = Connection::query()
             ->with('user')
             ->where('user_id', auth()->user()->id)
+            ->latest()
             ->get();
 
         return view('livewire.dashboard')
