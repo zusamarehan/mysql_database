@@ -22,9 +22,9 @@ Route::middleware(['auth:sanctum', 'verified'])
     ->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/connection/new', Livewire\DumpNew::class)
+    ->get('/connection/new', Livewire\ConnectionNew::class)
     ->name('connection.new');
 
 Route::middleware(['auth:sanctum', 'verified'])
-    ->get('/connection/{connection}', Livewire\DumpShow::class)
+    ->get('/connection/{connection}', Livewire\ConnectionShow::class)
     ->name('connection.show');
