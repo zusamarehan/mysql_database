@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
-class DumpShow extends Component
+class ConnectionShow extends Component
 {
     public $connection;
     public $connectionStatus = true;
@@ -103,7 +103,7 @@ class DumpShow extends Component
 
     public function render()
     {
-        return view('livewire.dump-show')
+        return view('livewire.connection-show')
             ->layout('layouts.app');
     }
 }

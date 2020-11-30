@@ -6,7 +6,7 @@ use App\Models\Connection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
-class DumpNew extends Component
+class ConnectionNew extends Component
 {
     public $connection = [
         'host' => null,
@@ -71,7 +71,7 @@ class DumpNew extends Component
 
     public function render()
     {
-        return view('livewire.dump-new')
+        return view('livewire.connection-new')
             ->layout('layouts.app', ['header' => 'New Connection']);
     }
 }
