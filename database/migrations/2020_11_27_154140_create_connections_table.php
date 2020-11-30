@@ -18,7 +18,7 @@ class CreateConnectionsTable extends Migration
             $table->string('name');
             $table->string('host');
             $table->string('username');
-            $table->string('password');
+            $table->text('password');
             $table->foreignId('user_id')->constrained('users');
             $table->timestamps();
         });

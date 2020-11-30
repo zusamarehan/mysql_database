@@ -26,7 +26,7 @@
 
                         <div class="mt-4">
                             <x-jet-label for="password" value="{{ __('Password') }}" />
-                            <x-jet-input wire:model="dummy" placeholder="Please enter your password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
+                            <x-jet-input wire:model="connection.password" placeholder="Please enter your password" id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
                             <x-jet-input-error for="connection.password" class="mt-2" />
                         </div>
 

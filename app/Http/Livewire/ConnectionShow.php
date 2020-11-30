@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Models\Connection;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
 
@@ -14,7 +13,6 @@ class ConnectionShow extends Component
     public $connectionStatus = true;
     public $updatedConnection = false;
     public $hash;
-    public $dummy = null;
 
     protected $rules = [
         'connection.host' => ['required'],
@@ -26,31 +24,30 @@ class ConnectionShow extends Component
     public function mount(Connection $connection)
     {
         $this->connection = $connection;
-        $this->hash = $this->connection->password;
+        $this->connection->password = base64_decode(env('APP_KEY').$this->connection->password.env('APP_KEY'));
     }
 
     public function updated($property)
     {
-        if($property === 'dummy') {
-            $this->connection->password = $this->dummy;
-            if(Hash::check($this->connection->password, $this->hash)) {
-                $this->updatedConnection = false;
-            }
-            else {
-                $this->updatedConnection = true;
-            }
-        }
-        else {
-            $propertyName = explode('.', $property)[1];
-            if($propertyName !== 'name') {
-                if(!$this->connection->isDirty($propertyName)) {
+        $propertyName = explode('.', $property)[1];
+        if($propertyName !== 'name') {
+            if($propertyName === 'password') {
+                $hash = base64_encode(env('APP_KEY').$this->connection->password.env('APP_KEY'));
+                if($this->connection->getOriginal('password') == $hash) {
                     $this->updatedConnection = false;
                 }
                 else {
                     $this->updatedConnection = true;
                 }
             }
+            else if(!$this->connection->isDirty($propertyName)) {
+                $this->updatedConnection = false;
+            }
+            else {
+                $this->updatedConnection = true;
+            }
         }
+
     }
 
     public function test()
@@ -98,6 +95,7 @@ class ConnectionShow extends Component
         );
 
         $this->connection->update();
+        $this->connection->password = base64_decode(env('APP_KEY').$this->connection->password.env('APP_KEY'));
         $this->emit('updated');
     }
 

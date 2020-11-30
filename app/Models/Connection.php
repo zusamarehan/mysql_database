@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Uuidable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 
 class Connection extends Model
 {
@@ -20,9 +19,7 @@ class Connection extends Model
     protected static function booted()
     {
         static::saving(function ($connection) {
-            if($connection->password !== null) {
-                $connection->password = Hash::make($connection->password);
-            }
+            $connection->password = base64_encode(env('APP_KEY').$connection->password.env('APP_KEY'));
         });
 
         static::creating(function ($connection) {
